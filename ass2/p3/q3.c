@@ -5,7 +5,7 @@
 
 int main()
 {
-    FILE *fp = fopen("sample.txt", "r");
+    FILE *fp = fopen("sample.txt", "w");
     if (fp == NULL)
     {
         printf("Error\n");
@@ -19,20 +19,12 @@ int main()
     }
     else if (pid == 0)
     {
-        printf("Child process:\n");
-        putchar(fgetc(fp));
-        putchar(fgetc(fp));
-        printf("\n");
-        exit(0);
+        fprintf(fp, "%s\n", "This is child process");
     }
     else
     {
         wait(NULL);
-        printf("Parent process:\n");
-        putchar(fgetc(fp));
-        putchar(fgetc(fp));
-        printf("\n");
-        // fclose(fp);
+        fprintf(fp, "%s\n", "This is parent process");
     }
     return 0;
 }
