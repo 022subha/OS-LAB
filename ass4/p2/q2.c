@@ -7,7 +7,7 @@
 
 int shmid;
 
-void calculateResultRow(void *shm_pointer, int **A, int **B, int row, int m, int p)
+void row(void *shm_pointer, int **A, int **B, int row, int m, int p)
 {
     for (int i = 0; i < p; i++)
     {
@@ -20,7 +20,7 @@ void calculateResultRow(void *shm_pointer, int **A, int **B, int row, int m, int
     }
 }
 
-void displayResult(void *shm_pointer, int n, int m, int p)
+void display(void *shm_pointer, int n, int m, int p)
 {
     for (int i = 0; i < n; i++)
     {
@@ -86,7 +86,7 @@ int main()
         {
             void *shm_pointer = shmat(shmid, NULL, 0);
             printf("Child process %d created\n", i + 1);
-            calculateResultRow(shm_pointer, A, B, i, m, p);
+            row(shm_pointer, A, B, i, m, p);
             exit(EXIT_SUCCESS);
         }
     }
@@ -126,6 +126,6 @@ int main()
     }
 
     printf("---------------------Result Matrix-----------------\n");
-    displayResult(shmat(shmid, NULL, 0), n, m, p);
+    display(shmat(shmid, NULL, 0), n, m, p);
     return 0;
 }
